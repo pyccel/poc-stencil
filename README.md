@@ -11,6 +11,8 @@ run
 
 ```shell
 pyccel stencil_v0.py --flags="-O3 -march=native -mtune=native -mavx -ffast-math" 
+pyccel stencil_v1.py --flags="-O3 -march=native -mtune=native -mavx -ffast-math" 
+pyccel stencil_v2.py --flags="-O3 -march=native -mtune=native -mavx -ffast-math" 
 ```
 
 ## Adding new versions
