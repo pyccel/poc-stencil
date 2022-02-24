@@ -14,7 +14,14 @@ pyccel stencil_v0.py --flags="-O3 -march=native -mtune=native -mavx -ffast-math"
 pyccel stencil_v1.py --flags="-O3 -march=native -mtune=native -mavx -ffast-math" 
 pyccel stencil_v2.py --flags="-O3 -march=native -mtune=native -mavx -ffast-math" 
 ```
+## Compiling the core file with pyccel using OpenMP
+run
 
+```shell
+pyccel stencil_v0.py --flags="-O3 -march=native -mtune=native -mavx -ffast-math"  --openmp
+pyccel stencil_v1.py --flags="-O3 -march=native -mtune=native -mavx -ffast-math"  --openmp
+pyccel stencil_v2.py --flags="-O3 -march=native -mtune=native -mavx -ffast-math"  --openmp
+```
 ## Adding new versions
 Whenever you add a new version (**vx**), put it in a new file **stencil_vx.py** then following the same steps as before.
 The test_stencil.py file will be unique and should provide an output as a table, for the different versions, flags etc
