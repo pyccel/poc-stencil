@@ -81,9 +81,9 @@ def test_1(n, p):
     # ...
 
     # ... version 2
-    out2      = np.zeros_like(x)
-    TT        = 1000
-    block_len = -1
+    out2        = np.zeros_like(x)
+    time_dot_v2 = 1000
+    block_len   = -1
     for bls in range(1, min(20,n)):
         if abs(n//bls-n/bls)>1e-10:continue
 
@@ -97,25 +97,24 @@ def test_1(n, p):
             print(abs(out-out2).max())
             raise ValueError("wrong result")
 
-        if T<TT:
-            TT      = T
-            block_len = bls
+        if T<time_dot_v2:
+            time_dot_v2 = T
+            block_len   = bls
 
-    time_dot_v2 = TT
     # ...
 
 #    print('[v0] CPU Time :', time_dot_v0)
 #    print('[v1] CPU Time :', time_dot_v1)
-#    print('[v2] CPU Time :', time_dot_v2, 'for bls:', block_len)
+#    print('[v2] CPU Time :', time_dot_v2)
 
     return time_dot_v0, time_dot_v1, time_dot_v2
 
 ################################################################
 if __name__ == '__main__':
-    ps    = [1,2,3,4,5]
-    ns    = [10,20,30,40,50,60,70,80,90]
-    nv    = 3
-    times = [np.zeros((len(ps),len(ns))) for i in range(nv)] 
+    ps           = [1,2,3,4,5]
+    ns           = [10,20,30,40,50,60,70,80,90]
+    nversions    = 3
+    times = [np.zeros((len(ps),len(ns))) for i in range(nversions)]
 
     for i,p in enumerate(ps):
         for j,n in enumerate(ns):
@@ -126,17 +125,17 @@ if __name__ == '__main__':
     from tabulate import tabulate
     headers = [""] + ["{}**3".format(ni) for ni in ns]
 
-#    for i,T in enumerate(times):
-#        T = T.tolist()
-#        T = [["p={}".format(pi)] + ti for pi,ti in zip(ps,T)]
-#        print("#"*70,"Timming of dot product version {}".format(i), "#"*70)
-#        print(tabulate(T, headers=headers, tablefmt="grid"))
-#        print("\n")
+    for i,T in enumerate(times):
+        T = T.tolist()
+        T = [["p={}".format(pi)] + ti for pi,ti in zip(ps,T)]
+        print("="*45,"Timings of dot product version {}".format(i), "="*45)
+        print(tabulate(T, headers=headers, tablefmt="grid"))
+        print("\n")
 
     for i,T in enumerate(times):
         if i==0:continue
         T = (times[0]/T).tolist()
         T = [["p={}".format(pi)] + ti for pi,ti in zip(ps,T)]
-        print("#"*70,"Speedup of dot product version {}".format(i), "#"*70)
+        print("="*34," Speedup of dot product version {} ".format(i), "="*34)
         print(tabulate(T, headers=headers, tablefmt="grid"))
         print("\n")
